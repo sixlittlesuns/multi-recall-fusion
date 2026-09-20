@@ -76,7 +76,7 @@ $$
 - $w_P$,$w_C$,$w_A$: Popular 权重,ItemCF 权重,ANN 权重
 - $r(i)$: 物品在对应召回列表中的 rank
 - `rrf_k=5`
-1. Equal-weight RRF ($w_P$=$w_C$=$w_A$)
+1. Equal-weight RRF
 
 | user group | recall@50 | recall@100 | recall@200 | coverage |
 | ---------- | --------- | ---------- | ---------- | -------- |
@@ -98,7 +98,7 @@ $$
 | 2:3:2        | Medium     | 2287      | 0.007237  | 0.014298   | 0.031800   | 0.288470 |
 | 2:3:2        | Warm       | 2216      | 0.011818  | 0.024225   | 0.050381   | 0.235560 |
 
-不同召回通道具有一定互补性。引入 ANN 后，融合方法能够显著扩大候选覆盖范围；进一步提高 ItemCF 权重后，Recall@K 得到恢复，但 Coverage 相应下降，表明多路召回融合存在明显的 Recall-Coverage 权衡。
+
 
 ### 结论
 
@@ -109,5 +109,3 @@ $$
 进一步采用 Weighted RRF 后，提高 ItemCF 权重能够逐步恢复 Recall。例如在 Warm 用户上，Recall@200 从 Equal-weight RRF 的 0.0428 提升至 1:2:1 的 0.0558，并进一步提升至 1:3:1 的 0.0630；Medium 用户也从 0.0282 提升至 0.0397。与此同时，Coverage 随 ItemCF 权重增加而下降，说明融合过程中存在明显的 Recall-Coverage trade-off。该结果表明，多路召回的价值并非简单地追求单一指标最大化，而是通过不同召回通道之间的互补性，在行为相关性和候选覆盖之间进行平衡。
 
 综合来看，Popular、ItemCF 和 ANN 分别提供热门度、协同行为和内容语义三类互补信息。ItemCF 更适合提供高相关性的行为候选，ANN 则能够扩大候选空间，多路召回可以结合不同信息来源。在当前实验设置下，Weighted RRF 能够通过调整不同召回通道的贡献，在 Recall 和 Coverage 之间实现不同程度的权衡。
-
-
